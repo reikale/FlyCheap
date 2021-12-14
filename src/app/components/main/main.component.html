@@ -1,0 +1,51 @@
+<h1>FlyCheap</h1>
+
+<form #forma="ngForm" (ngSubmit)="submit(forma.value)" class="form__input">
+    <div class="form-group form__parent-div">
+        <label for="cityFrom" class="form-label">Išvykti iš: </label>
+        <input 
+        required
+        id="cityFrom"
+        class="form-control"
+        ngModel
+        name="cityFrom"
+        #cityFrom="ngModel"
+        type="text">
+        <label for="cityTo" class="form-label">Atvykti į:</label>
+        <input
+        required 
+        id="cityTo"
+        class="form-control"
+        ngModel
+        name="cityTo"
+        #cityTo="ngModel"
+        type="text">
+        <label for="dateFrom" class="form-label">Nuo: </label>
+        <input 
+        id="dateFrom"
+        class="form-control"
+        ngModel
+        name="dateFrom"
+        #dateFrom="ngModel"
+        type="date">
+        <label for="dateTo" class="form-label">Iki: </label>
+        <input 
+        id="dateTo"
+        class="form-control"
+        ngModel
+        name="dateTo"
+        #dateTo="ngModel"
+        type="date">
+        
+    </div>
+    <button
+        (click)="onSubmit(forma);" 
+        type="submit"
+        class="btn btn-primary">Pateikti</button>
+</form>
+
+<p>{{ forma.value | json }} </p>
+
+<!-- <div *ngIf="this.showResult">
+    <h1>Matau rezultatą</h1>
+</div> -->

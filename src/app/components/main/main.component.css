@@ -1,0 +1,8 @@
+.form__input{
+    max-width: 400px;
+    margin: auto;
+}
+.form__parent-div{
+    margin: 100px auto;
+    margin-bottom: 50px;
+}
