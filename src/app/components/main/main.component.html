@@ -1,9 +1,10 @@
-<h1>FlyCheap</h1>
+
 
 <form #forma="ngForm" (ngSubmit)="submit(forma.value)" class="form__input">
     <div class="form-group form__parent-div">
-        <label for="cityFrom" class="form-label">Išvykti iš: </label>
+        <label for="cityFrom" class="form-label">Išvykti iš:</label>
         <input 
+        placeholder="VNO"
         required
         id="cityFrom"
         class="form-control"
@@ -13,6 +14,7 @@
         type="text">
         <label for="cityTo" class="form-label">Atvykti į:</label>
         <input
+        placeholder="DUB"
         required 
         id="cityTo"
         class="form-control"
