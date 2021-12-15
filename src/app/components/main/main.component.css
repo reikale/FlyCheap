@@ -3,6 +3,44 @@
     margin: auto;
 }
 .form__parent-div{
-    margin: 100px auto;
-    margin-bottom: 50px;
+    margin: 50px auto;
+   
+}
+.pateiktiMygtukas{
+    margin: 10px 0 40px 0;
+}
+.rezultatas{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 400px;
+    flex-direction: column;
+    margin-bottom: 100px;
+    margin: 50px auto;
+}
+h4.ticketPrice{
+    font-weight: 600;
+    
+}
+.kurKeliausite{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.kurKeliausite h3{
+    font-family: 'Inconsolata', monospace;
+    font-weight: 600;
+   
+}
+.rezultatas h3, .rezultatas h4{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    font-family: 'Inconsolata', monospace;
+    
+}
+.rezultatas h2{
+    font-size: 20px;
+    
 }

@@ -1,10 +1,13 @@
+<div class="kurKeliausite">
+    <H3>Kur keliausite?</H3>
+</div>
 
 
 <form #forma="ngForm" (ngSubmit)="submit(forma.value)" class="form__input">
     <div class="form-group form__parent-div">
         <label for="cityFrom" class="form-label">Išvykti iš:</label>
         <input 
-        placeholder="VNO"
+        placeholder="Oro uosto IATA kodas pvz.: VNO"
         required
         id="cityFrom"
         class="form-control"
@@ -14,7 +17,7 @@
         type="text">
         <label for="cityTo" class="form-label">Atvykti į:</label>
         <input
-        placeholder="DUB"
+        placeholder="Oro uosto IATA kodas pvz.: DUB"
         required 
         id="cityTo"
         class="form-control"
@@ -43,11 +46,18 @@
     <button
         (click)="onSubmit(forma);" 
         type="submit"
-        class="btn btn-primary">Pateikti</button>
+        class="btn btn-secondary pateiktiMygtukas">Pateikti</button>
 </form>
+   
+<!-- <p>{{ forma.value | json }} </p> -->
 
-<p>{{ forma.value | json }} </p>
-
-<!-- <div *ngIf="this.showResult">
-    <h1>Matau rezultatą</h1>
-</div> -->
+<div class="rezultatas" *ngIf="viewMode">
+    <!-- <h3>Pigiausias bilietas iš {{this.submitedCityFrom}} į {{this.submitedCityTo}}, yra {{this.resultPrice}}Eur {{this.resultDeparture}}.</h3> -->
+    <h3>Jūsų pasiūlymas:</h3>
+    <h4>Išvykimas iš: {{this.submitedCityFrom}}</h4>
+    <h4>Atvykimas į: {{this.submitedCityTo}}</h4>
+    <h4 class="ticketPrice">Bilieto kaina: {{this.resultPrice}}Eur</h4>
+    <h4>Skrydžio data: {{this.resultDeparture}}</h4>
+    <button class="btn btn-secondary" (click)="RodytiRezultata()">Peržiūrėti pasiūlymą</button>
+   
+</div>
