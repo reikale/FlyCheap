@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { KiwiService } from './services/kiwi.service';
 import { MainComponent } from './components/main/main.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

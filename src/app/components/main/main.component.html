@@ -48,6 +48,20 @@
         type="submit"
         class="btn btn-secondary pateiktiMygtukas">Pateikti</button>
 </form>
+
+<!-- Temporary input fort POST method -->
+<div class="anotherSubmit">
+    <input type="text" placeholder="data" [(ngModel)]="data">
+    <div class="name-container-dropdown">
+        <div>
+            <!-- <div class="name" *ngFor="let n of names">
+
+            </div> -->
+        </div>
+    </div>
+    <button type="submit" (click)="postData()"> Post </button>
+</div>
+
    
 <!-- <p>{{ forma.value | json }} </p> -->
 

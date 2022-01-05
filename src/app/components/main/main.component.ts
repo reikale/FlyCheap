@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { DatePipe, formatDate } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
 import { asLiteral } from '@angular/compiler/src/render3/view/util';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AirportsService } from 'src/app/services/airports.service';
+import { result } from 'lodash';
 
 @Component({
   selector: 'app-main',
@@ -14,11 +17,15 @@ import { asLiteral } from '@angular/compiler/src/render3/view/util';
 
 export class MainComponent implements OnInit {
 
-  constructor(private service: KiwiService) { 
+  constructor(private service: KiwiService, 
+    private airportsService : AirportsService,
+    private http:HttpClient) { 
   
   }
 
   ngOnInit(): void {
+    console.log("pasileido onInit");
+    this.airportsService.getData();
     this.service.serviceFinalResult$.subscribe(
       resultatas =>{
         this.resultDeparture = resultatas[0].split('T')[0];
@@ -30,10 +37,14 @@ export class MainComponent implements OnInit {
         
       }
     )
+    this.airportsService.duomenys$.subscribe( resultatas => {
+      this.allAirportsInfo = resultatas;
+      console.log("cia apie oro uostus: ", resultatas);
+    })
       
   }
   resultInfo!: any;
-
+  allAirportsInfo!: string;
 
   informacija: any;
   viewMode = false;
@@ -104,4 +115,18 @@ export class MainComponent implements OnInit {
     window.open(this.resultLink);
   }    
   
+
+  data!:String;
+
+  postData(){
+
+    const url = 'http://httpbin.org/post';
+    this.http.post(url, {
+      duomenys:this.data
+    }).toPromise().then((data:any) => {
+      console.log(data)
+    })
+  }
 }
+
+// ALL AIRPORTS JSON FILE : https://raw.githubusercontent.com/jbrooksuk/JSON-Airports/master/airports.json

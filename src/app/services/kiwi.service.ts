@@ -5,6 +5,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { MainComponent } from '../components/main/main.component';
 import * as _ from 'lodash';
 import { getTranslationDeclStmts } from '@angular/compiler/src/render3/view/template';
+import { map, filter, tap } from 'rxjs/operators'
 
 
 export interface Items {
@@ -39,6 +40,7 @@ const options = { params: new HttpParams(httpParams), headers: headers};
 
 export class KiwiService {
 
+  // CREATING SUBJECT:
   private _resultArray = new Subject<string[]>();
   serviceFinalResult$ = this._resultArray.asObservable();
 
@@ -66,6 +68,7 @@ export class KiwiService {
   
   returnArray!: string[];
 
+
   sudetiSarasa(){
     // console.log('Visi parametrai: '+ this.trasferedCityFrom +' '+this.trasferedCityTo+' '+this.trasferedDateFrom+' '+this.trasferedDateTo);
     let flyFromString = 'fly_from=';
@@ -76,7 +79,7 @@ export class KiwiService {
     dateFromString += this.trasferedDateFrom;
     let dateToString = 'date_to=';
     dateToString += this.trasferedDateTo;
-    let stopover = 'stopover_to=6:00';
+    let stopover = 'stopover_to=3:00';
     let vehicle_type = 'vehicle_type=aircraft';
     this.secondString = [flyFromString, flyToString, dateFromString, dateToString, stopover, vehicle_type].join('&');
     this.apiUrl = ['https://tequila-api.kiwi.com/v2/search?', this.secondString].join('');
@@ -92,8 +95,7 @@ export class KiwiService {
     this.trasferedDateTo = dateTo;
   }
 
-  constructor(private http : HttpClient
-      ) { }
+  constructor(private http : HttpClient) { }
   
 
 async postData( url = this.apiUrl, data = myObject) {
@@ -159,6 +161,6 @@ async postData( url = this.apiUrl, data = myObject) {
   }
   
   //  VISKAS IKI ČIA VEIKIA. TOLIAU REIK GRĄŽINTI VERTES IR JAS ATVAIZDUOTI 
-
+  
 }
 
