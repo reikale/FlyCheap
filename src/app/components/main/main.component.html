@@ -7,24 +7,37 @@
     <div class="form-group form__parent-div">
         <label for="cityFrom" class="form-label">Išvykti iš:</label>
         <input 
-        placeholder="Oro uosto IATA kodas pvz.: VNO"
+        placeholder="Vilnius International Airport"
         required
         id="cityFrom"
+        list="cityFromList"
         class="form-control"
         ngModel
         name="cityFrom"
         #cityFrom="ngModel"
+        
         type="text">
+        <div class="airport-container-dropdown container" *ngIf="this.showDropdown">
+            <div>
+                <datalist id="cityFromList" class="airport">
+                    <option *ngFor="let item of this.allAirportsInfo" value="{{item}}">
+                </datalist>
+            </div>
+        </div>
         <label for="cityTo" class="form-label">Atvykti į:</label>
         <input
-        placeholder="Oro uosto IATA kodas pvz.: DUB"
+        placeholder="John F Kennedy International Airport"
         required 
+        list="cityToList"
         id="cityTo"
         class="form-control"
         ngModel
         name="cityTo"
         #cityTo="ngModel"
         type="text">
+            <datalist id="cityToList" class="airport">
+                <option *ngFor="let item of this.allAirportsInfo" value="{{item}}">
+            </datalist>
         <label for="dateFrom" class="form-label">Nuo: </label>
         <input 
         id="dateFrom"
@@ -49,22 +62,6 @@
         class="btn btn-secondary pateiktiMygtukas">Pateikti</button>
 </form>
 
-<!-- Temporary input fort POST method -->
-<div class="anotherSubmit">
-    <input type="text" placeholder="data" [(ngModel)]="data">
-    <div class="name-container-dropdown">
-        <div>
-            <!-- <div class="name" *ngFor="let n of names">
-
-            </div> -->
-        </div>
-    </div>
-    <button type="submit" (click)="postData()"> Post </button>
-</div>
-
-   
-<!-- <p>{{ forma.value | json }} </p> -->
-
 <div class="rezultatas" *ngIf="viewMode">
     <!-- <h3>Pigiausias bilietas iš {{this.submitedCityFrom}} į {{this.submitedCityTo}}, yra {{this.resultPrice}}Eur {{this.resultDeparture}}.</h3> -->
     <h3>Jūsų pasiūlymas:</h3>
@@ -73,5 +70,6 @@
     <h4 class="ticketPrice">Bilieto kaina: {{this.resultPrice}}Eur</h4>
     <h4>Skrydžio data: {{this.resultDeparture}}</h4>
     <button class="btn btn-secondary" (click)="RodytiRezultata()">Peržiūrėti pasiūlymą</button>
-   
 </div>
+
+

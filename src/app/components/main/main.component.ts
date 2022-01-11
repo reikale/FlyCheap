@@ -9,6 +9,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AirportsService } from 'src/app/services/airports.service';
 import { result } from 'lodash';
 
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -24,8 +25,9 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("pasileido onInit");
+    
     this.airportsService.getData();
+
     this.service.serviceFinalResult$.subscribe(
       resultatas =>{
         this.resultDeparture = resultatas[0].split('T')[0];
@@ -33,18 +35,22 @@ export class MainComponent implements OnInit {
         this.resultPrice = resultatas[2];
         this.resultLink = resultatas[3];
         console.log(this.resultPrice+"Eur");
-        console.log("pavyko per observable");
+      
         
       }
     )
     this.airportsService.duomenys$.subscribe( resultatas => {
       this.allAirportsInfo = resultatas;
-      console.log("cia apie oro uostus: ", resultatas);
+      // console.log("cia apie oro uostus: ", resultatas);
     })
       
   }
+  // HTML kintamieji: 
+  showDropdown: boolean = true;
   resultInfo!: any;
-  allAirportsInfo!: string;
+  // cia yra visu oro uostu pavadinimai
+  allAirportsInfo: string[] = [];
+  allAirportsIATA: [] = [];
 
   informacija: any;
   viewMode = false;
@@ -68,20 +74,28 @@ export class MainComponent implements OnInit {
 
   async submit(el: any ){
     
+    // pasikeisti formuluote situ abieju dalyku:
+
+    this.submitedCityFrom = this.removeSpaces(el.cityFrom)!;
+    console.log("main.ts:80"+this.submitedCityFrom);
+    // veikia
+    this.submitedCityFrom = await this.airportsService.getIATACode(this.submitedCityFrom)
+    console.log("main.ts:82"+this.submitedCityFrom);
+
+    this.submitedCityTo = this.removeSpaces(el.cityTo);
+    console.log("main.ts:85"+this.submitedCityFrom);
+    this.submitedCityTo = await this.airportsService.getIATACode(this.submitedCityTo);
+    console.log("main.ts:87"+this.submitedCityTo);
+
     
-    this.submitedCityFrom = el.cityFrom;
-    this.submitedCityTo = el.cityTo;
     this.submitedDateFrom = this.dateFormat(el.dateFrom);
     this.submitedDateTo = this.dateFormat(el.dateTo);
     // Siunciu duomenis i service elementa
-    this.service.nustatytiLaukus(el.cityFrom, el.cityTo, this.dateFormat(el.dateFrom), this.dateFormat(el.dateTo));
+    this.service.nustatytiLaukus(this.submitedCityFrom, this.submitedCityTo, this.dateFormat(el.dateFrom), this.dateFormat(el.dateTo));
    
     // ---- cia prasideda visa grandine ---
     this.resultInfo = await this.service.sudetiSarasa();
-    console.log("Sulaukiau galutines info: "+this.resultInfo);
 
-    
-    console.log("Praejo submit metodas");
     window.scrollTo(0, 1400);
   }
 
@@ -91,7 +105,7 @@ export class MainComponent implements OnInit {
    
   }
   gautiDuomenis(){
-    console.log("Pasileido gautiDuomenis");
+
    this.informacija = this.service.postData();
 
   }
@@ -102,15 +116,14 @@ export class MainComponent implements OnInit {
     let newDate: string = placeholder.reverse().join('/');
     return newDate;
   }
-  // atnaujintiDuomenis(){
-  //   this.resultDeparture = this.service.returnItems()[0];
-  //   this.resultArrival = this.service.returnItems()[1];
-  //   this.resultPrice = this.service.returnItems()[2];
-  //   this.resultLink = this.service.returnItems()[3];
-  //   console.log(this.resultDeparture);
-  //   console.log("pavyko kitu budu");
-    
-  // }
+  rodytiOroUostuInfo(){
+    for (let i = 0; i < this.allAirportsInfo.length; i++) {
+      const element = this.allAirportsInfo[i];
+      
+    }
+  
+  }
+  
   RodytiRezultata(){
     window.open(this.resultLink);
   }    
@@ -127,6 +140,19 @@ export class MainComponent implements OnInit {
       console.log(data)
     })
   }
+
+  toggleDropdown(){
+    this.showDropdown = !this.showDropdown;
+  }
+
+  removeSpaces(word: string){
+    const newWord = word.replaceAll(' ', '%20');
+  
+    return newWord;
+  }
+
 }
+
+
 
 // ALL AIRPORTS JSON FILE : https://raw.githubusercontent.com/jbrooksuk/JSON-Airports/master/airports.json
