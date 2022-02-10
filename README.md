@@ -40,8 +40,8 @@
 - Travel offer is available as soon as the ticket price is shown on the screen. By pressing a button to view the offer customer is redirected to the Kiwi.com website to finish the booking form.
 
 ## Screenshots
-![Example screenshot](./img/Search.PNG)
-![Example screenshot](./img/Result.PNG)
+![Example screenshot](./img/search.jpg)
+![Example screenshot](./img/result.jpg)
 
 
 ## Setup
