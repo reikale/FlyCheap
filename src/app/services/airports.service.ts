@@ -21,7 +21,7 @@ export class AirportsService {
   
 
   constructor(private http : HttpClient) { }
-// mano uostu API : C:\Users\Inga\Desktop\BIT\2021-12-16 Docker\WebApplication1\WebApplication1
+
   url:string = 'https://oro-uostu-api.herokuapp.com/';
   // GRAZINU VISUS ORO UOSTU KODUS: 
   async getData( ) {
@@ -57,7 +57,6 @@ export class AirportsService {
     return responseJson; // parses JSON response into native JavaScript objects
   }
 
- 
   async getIATACode(el: string) {
     // Default options are marked with *
     const newUrl = [this.url, el].join().replace(',', '');

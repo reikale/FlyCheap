@@ -32,7 +32,7 @@ export class MainComponent implements OnInit {
       resultatas =>{
         this.resultDeparture = resultatas[0].split('T')[0];
         this.resultArrival = resultatas[1];
-        this.resultPrice = resultatas[2];
+        this.resultPrice = resultatas[2] + "Eur";
         this.resultLink = resultatas[3];
         console.log(this.resultPrice+"Eur");
       
@@ -102,7 +102,10 @@ export class MainComponent implements OnInit {
   onSubmit(forma: any){
   
     this.viewMode = true;
-   
+    this.submitedCityFrom = "Loading...";
+    this.submitedCityTo = "Loading...";
+    this.resultPrice = "Loading...";
+    this.resultDeparture = "Loading...";
   }
   gautiDuomenis(){
 
@@ -130,16 +133,6 @@ export class MainComponent implements OnInit {
   
 
   data!:String;
-
-  postData(){
-
-    const url = 'http://httpbin.org/post';
-    this.http.post(url, {
-      duomenys:this.data
-    }).toPromise().then((data:any) => {
-      console.log(data)
-    })
-  }
 
   toggleDropdown(){
     this.showDropdown = !this.showDropdown;
